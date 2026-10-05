@@ -16,6 +16,7 @@ import {
   type LngLat,
 } from '../src/lib/geo';
 import type { AreaGeom, Feature, FeatureCollection, FreePointProps, MultiPolygonGeom, PointGeom } from '../src/lib/types';
+import polygonClipping, { type Polygon } from 'polygon-clipping';
 import type { StreetLine } from './streets';
 
 /** Distance to step along the road past the boundary, so the point is clearly outside. */
@@ -23,12 +24,18 @@ export const ENTRY_STEP_M = 25;
 /** Keep entry points on the same street at least this far apart. */
 export const ENTRY_DEDUPE_M = 300;
 
-/** Residential and local roads only: no trunk roads, bypass, footpaths or private roads. */
+/**
+ * Ordinary residential and local roads, by source: council Street Types
+ * categories and OS Open Roads functions. Excludes trunk roads, A/B roads,
+ * motorways, footpaths and restricted (private) access roads.
+ */
+const PARKABLE_FUNCTIONS = new Set(['General Access Road', 'District / Local Distributor', 'Local Road', 'Minor Road']);
+
 export function isParkableRoad(s: StreetLine): boolean {
   return (
-    (s.featureType === 'General Access Road' || s.featureType === 'District / Local Distributor') &&
+    PARKABLE_FUNCTIONS.has(s.featureType) &&
     s.classification !== 'Trunk' &&
-    s.adoption.startsWith('Adopted')
+    (s.adoption === '' || s.adoption.startsWith('Adopted'))
   );
 }
 
@@ -72,6 +79,11 @@ export function freeEntryPoints(
 
   const isControlled = (p: LngLat) => controlled.some((g) => pointInGeometry(p, g));
   const found = new Map<string, LngLat[]>();
+  const add = (name: string, q: LngLat) => {
+    const list = found.get(name) ?? [];
+    if (!list.some((o) => distanceM(o, q) < ENTRY_DEDUPE_M)) list.push(q);
+    found.set(name, list);
+  };
 
   for (const s of streets) {
     if (!isParkableRoad(s)) continue;
@@ -91,9 +103,7 @@ export function freeEntryPoints(
         for (const dir of [1, -1]) {
           const q = toLngLat([xx + dir * ENTRY_STEP_M * ux, xy + dir * ENTRY_STEP_M * uy]);
           if (pointInGeometry(q, free) && !isControlled(q)) {
-            const list = found.get(s.name) ?? [];
-            if (!list.some((o) => distanceM(o, q) < ENTRY_DEDUPE_M)) list.push(q);
-            found.set(s.name, list);
+            add(s.name, q);
             break;
           }
         }
@@ -109,4 +119,18 @@ export function freeEntryPoints(
     });
   }
   return { type: 'FeatureCollection', features };
+}
+
+/**
+ * The free zone from open data: the city (union of ward boundaries) minus
+ * every controlled zone and priority parking area. Ward outlines are
+ * simplified first; they are only the outer edge of the city.
+ */
+export function freeZoneFromBoundary(wards: AreaGeom[], controlled: AreaGeom[]): MultiPolygonGeom {
+  const asPolys = (g: AreaGeom): Polygon[] => (g.type === 'Polygon' ? [g.coordinates] : g.coordinates) as Polygon[];
+  const simplified = wards.flatMap((g) => simplifyArea(g, 3, 0).coordinates) as Polygon[];
+  const city = polygonClipping.union(simplified[0], ...simplified.slice(1).map((p) => [p]));
+  const zones = controlled.flatMap(asPolys);
+  const free = zones.length ? polygonClipping.difference(city, ...zones.map((p) => [p])) : city;
+  return { type: 'MultiPolygon', coordinates: free as LngLat[][][] };
 }

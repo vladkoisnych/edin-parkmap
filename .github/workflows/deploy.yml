@@ -37,7 +37,18 @@ jobs:
       - run: npm run typecheck
       - run: npm test
 
-      - name: Fetch and validate council data
+      - name: Month key for the OS Open Roads cache
+        id: month
+        run: echo "key=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      # OS Open Roads is a ~600 MB GB-wide download; keep it between weekly runs.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/raw/osroads
+          key: osroads-${{ steps.month.outputs.key }}
+          restore-keys: osroads-
+
+      - name: Fetch and validate open data
         id: data
         continue-on-error: true
         run: |

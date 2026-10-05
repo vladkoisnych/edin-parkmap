@@ -1,7 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { distanceM, pointInGeometry, type LngLat } from '../../src/lib/geo';
-import { build, type BuildOutput, type RawLayers } from '../../pipeline/build';
+import { distanceM, geometryCentroid, pointInGeometry, type LngLat } from '../../src/lib/geo';
+import { build, type BuildOutput } from '../../pipeline/build';
+import { fromCouncil, fromOpen, type BuildInputs } from '../../pipeline/sources';
+import { RULES_FILE } from '../../pipeline/tariff-rules';
 import { TariffJoiner } from '../../pipeline/join';
 import { buildSegments } from '../../pipeline/segments';
 import { StreetNamer } from '../../pipeline/streets';
@@ -88,20 +90,38 @@ describe('buildSegments', () => {
   });
 });
 
-describe('build on the frozen fixture', () => {
+const load = (path: string) => JSON.parse(readFileSync(`tests/fixtures/${path}`, 'utf8'));
+
+const modes: [string, () => BuildInputs][] = [
+  [
+    'open (default)',
+    () =>
+      fromOpen(
+        { bays: load('open/bays.geojson'), cpz: load('open/cpz.geojson'), wards: load('open/wards.geojson'), roads: load('open/roads.json'), roadsRelease: 'fixture' },
+        JSON.parse(readFileSync(RULES_FILE, 'utf8')),
+      ),
+  ],
+  [
+    'council',
+    () =>
+      fromCouncil({
+        tariffs: load('council/tariffs.geojson'),
+        payDisplay: load('council/payDisplay.geojson'),
+        shared: load('council/shared.geojson'),
+        streets: load('council/streets.geojson'),
+        cpz: load('council/cpz.geojson'),
+        cpzWithUncontrolled: load('council/cpzWithUncontrolled.geojson'),
+      }),
+  ],
+];
+
+describe.each(modes)('build on the frozen fixture: %s sources', (_name, inputs) => {
+  let input: BuildInputs;
   let out: BuildOutput;
-  const load = (name: string) => JSON.parse(readFileSync(`tests/fixtures/${name}.geojson`, 'utf8'));
 
   beforeAll(() => {
-    const raw: RawLayers = {
-      tariffs: load('tariffs'),
-      payDisplay: load('payDisplay'),
-      shared: load('shared'),
-      streets: load('streets'),
-      cpz: load('cpz'),
-      cpzWithUncontrolled: load('cpzWithUncontrolled'),
-    };
-    out = build(raw);
+    input = inputs();
+    out = build(input);
   });
 
   it('passes validation', () => {
@@ -127,13 +147,11 @@ describe('build on the frozen fixture', () => {
   });
 
   it('puts free entry points in the free zone, outside every CPZ', () => {
-    const cpz = load('cpz').features.map((f: any) => f.geometry);
-    const freeGeom = load('cpzWithUncontrolled').features[0].geometry;
     expect(out.freePoints.features.length).toBeGreaterThan(3);
     for (const f of out.freePoints.features) {
       const p = f.geometry.coordinates;
-      expect(pointInGeometry(p, freeGeom)).toBe(true);
-      expect(cpz.some((g: any) => pointInGeometry(p, g))).toBe(false);
+      expect(pointInGeometry(p, input.freeZone!)).toBe(true);
+      expect(input.controlled.some((g) => pointInGeometry(p, g))).toBe(false);
     }
   });
 
@@ -147,5 +165,23 @@ describe('build on the frozen fixture', () => {
   it('flags large swings against the previous run', () => {
     const prev = { ...out.counts, bays: out.counts.bays * 2 };
     expect(validate(out, prev).join()).toMatch(/bays changed by/);
+  });
+});
+
+describe('open and council sources agree on the fixture', () => {
+  it('prices the same bays the same way', () => {
+    const [open, council] = modes.map(([, f]) => build(f()));
+    const key = (b: any) => geometryCentroid(b.geometry).map((x: number) => x.toFixed(5)).join(',');
+    const councilCode = new Map(council.bays.features.map((b) => [key(b), b.properties.t]));
+    let same = 0;
+    let matched = 0;
+    for (const b of open.bays.features) {
+      const c = councilCode.get(key(b));
+      if (c == null) continue;
+      matched++;
+      if (c === b.properties.t) same++;
+    }
+    expect(matched).toBeGreaterThan(300);
+    expect(same / matched).toBeGreaterThan(0.98);
   });
 });

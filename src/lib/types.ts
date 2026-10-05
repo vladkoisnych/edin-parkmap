@@ -42,6 +42,10 @@ export interface FreePointProps {
 
 export interface Meta {
   fetchedAt: string;
+  /** "open" (OGL-only sources, the default) or "council" (the council's parking map layers). */
+  sourceMode?: 'open' | 'council';
+  /** Required attribution for the data in this snapshot. */
+  attribution?: string;
   sources: Record<string, string>;
   counts: Record<string, number>;
   dropped: Record<string, number>;

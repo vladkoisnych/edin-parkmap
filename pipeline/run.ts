@@ -1,6 +1,7 @@
 // Fetch council layers, build, validate, write data files.
 //
-//   npm run data                       fetch live, write public/data
+//   npm run data                       open-licensed sources (default), write public/data
+//   npm run data -- --source council   the council's parking web map layers (no reuse licence)
 //   npm run data -- --cache            reuse .cache/raw if present
 //   npm run data -- --previous <url|path to meta.json>   drift check against last good run
 //   npm run data -- --no-drift         skip the drift check (first run, known big change)
@@ -11,12 +12,15 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import type { Meta } from '../src/lib/types';
-import { checkDatum, fetchLayerCached, LAYERS, layerUrl } from './arcgis';
-import { build, type RawLayers } from './build';
+import { checkDatum, layerUrl } from './arcgis';
+import { build } from './build';
+import { ATTRIBUTION, COUNCIL_LAYERS, DATUM_CHECK_LAYER, fetchCouncil, fetchOpen, fromCouncil, fromOpen, OPEN_LAYERS, type SourceMode } from './sources';
+import { loadRules, RULES_FILE } from './tariff-rules';
 import { validate } from './validate';
 
 const { values: args } = parseArgs({
   options: {
+    source: { type: 'string', default: 'open' },
     cache: { type: 'boolean', default: false },
     out: { type: 'string', default: 'public/data' },
     previous: { type: 'string' },
@@ -36,21 +40,24 @@ async function loadPrevious(src: string | undefined): Promise<Meta | undefined> 
 }
 
 async function main() {
-  const cacheDir = '.cache/raw';
+  const mode = args.source as SourceMode;
+  if (mode !== 'open' && mode !== 'council') throw new Error(`--source must be "open" or "council", not "${args.source}"`);
+  const cache = { cacheDir: '.cache/raw', useCache: args.cache! };
   const started = Date.now();
-  if (!args.cache) console.log(`datum check: server WGS84 within ${(await checkDatum()).toFixed(1)} m of local conversion`);
-  const raw = {} as RawLayers;
-  for (const [key, id] of Object.entries(LAYERS) as [keyof RawLayers, number][]) {
-    const fields = key === 'streets' ? 'OBJECTID,primary_ns,feature_ty,classifica,adoption_s' : '*';
-    raw[key] = await fetchLayerCached(id, cacheDir, args.cache!, fields);
-    console.log(`layer ${id} (${key}): ${raw[key].features.length} features`);
-  }
+  console.log(`source: ${mode}`);
+  if (!args.cache) console.log(`datum check: server WGS84 within ${(await checkDatum(DATUM_CHECK_LAYER[mode])).toFixed(1)} m of local conversion`);
 
-  const out = build(raw);
+  const raw = mode === 'open' ? await fetchOpen(cache) : undefined;
+  const input = raw ? fromOpen(raw, await loadRules()) : fromCouncil(await fetchCouncil(cache));
+  for (const [k, v] of Object.entries(input.rawCounts)) console.log(`${k}: ${v} features`);
+
+  const out = build(input);
   for (const w of out.warnings) console.warn(`warning: ${w}`);
 
   const previous = args['no-drift'] ? undefined : await loadPrevious(args.previous);
-  const errors = validate(out, previous?.counts);
+  // Counts aren't comparable across a source switch.
+  const comparable = previous && (previous.sourceMode ?? 'council') === mode ? previous.counts : undefined;
+  const errors = validate(out, comparable);
   console.log('counts', out.counts);
   console.log('dropped', out.dropped);
   if (errors.length) {
@@ -58,9 +65,15 @@ async function main() {
     process.exit(2);
   }
 
+  const layers = mode === 'open' ? OPEN_LAYERS : COUNCIL_LAYERS;
   const meta: Meta = {
     fetchedAt: new Date().toISOString(),
-    sources: Object.fromEntries(Object.entries(LAYERS).map(([k, id]) => [k, layerUrl(id)])),
+    sourceMode: mode,
+    attribution: ATTRIBUTION[mode],
+    sources: {
+      ...Object.fromEntries(Object.entries(layers).map(([k, ref]) => [k, layerUrl(ref)])),
+      ...(raw ? { roads: `OS Open Roads ${raw.roadsRelease}`, tariffRules: RULES_FILE } : {}),
+    },
     counts: out.counts,
     dropped: out.dropped,
     tariffs: out.tariffs,

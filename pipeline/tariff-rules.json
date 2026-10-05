@@ -1,0 +1,1291 @@
+{
+  "provenance": [
+    "Seeded 2026-10-05 by pipeline/seed-tariff-rules.mts from the council's Parking Tariff Area layer.",
+    "Prices and hours match the published page https://www.edinburgh.gov.uk/parking-spaces/parking-prices-times (£1/hr long-stay bays are not listed there).",
+    "Maintain by hand: check signage or council notices when tariffs change."
+  ],
+  "tariffs": {
+    "B1": {
+      "Charge": "Charge B1",
+      "Cost": "£9/hr",
+      "Hours": "Mon-Sat 8:30am-6:30pm. Sun 12:30pm-6:30pm.",
+      "Remarks": ""
+    },
+    "B2": {
+      "Charge": "Charge B2",
+      "Cost": "£8/hr",
+      "Hours": "Mon-Sat 8:30am-6:30pm. Sun 12:30pm-6:30pm.",
+      "Remarks": ""
+    },
+    "B3": {
+      "Charge": "Charge B3",
+      "Cost": "£6.80/hr",
+      "Hours": "Mon-Sat 8:30am-6:30pm. Sun 12:30pm-6:30pm.",
+      "Remarks": ""
+    },
+    "C1": {
+      "Charge": "Charge C1",
+      "Cost": "£6/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": ""
+    },
+    "C2": {
+      "Charge": "Charge C2",
+      "Cost": "£4.60/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": ""
+    },
+    "D": {
+      "Charge": "Charge D",
+      "Cost": "£4.20/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": ""
+    },
+    "E": {
+      "Charge": "Charge E",
+      "Cost": "£1/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": "£1/hr up to £8.00 for 8 hrs, £11.20 for max 9 hr stay"
+    },
+    "G": {
+      "Charge": "Charge G",
+      "Cost": "£1/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": "£1/hr up to £8.00 for 8 hrs, £11.20 for max 9 hr stay"
+    },
+    "H": {
+      "Charge": "Charge H",
+      "Cost": "£1/hr",
+      "Hours": "Mon-Fri, 8:30am-5:30pm",
+      "Remarks": "£1/hr up to £8.00 for 8 hrs, £11.20 for max 9 hr stay"
+    }
+  },
+  "zones": {
+    "1": "B2",
+    "2": "B1",
+    "3": "B3",
+    "4": "B2",
+    "5": "C2",
+    "6": "C1",
+    "7": "C2",
+    "8": "C2",
+    "1A": "B1",
+    "5A": "C1",
+    "B8": "D",
+    "N1": "D",
+    "N2": "D",
+    "N3": "D",
+    "N4": "D",
+    "N5": "D",
+    "S1": "D",
+    "S2": "D",
+    "S3": "D",
+    "S4": "D"
+  },
+  "streets": [
+    {
+      "street": "Belford Road",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Coates Gardens",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Douglas Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Douglas Gardens",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Eglinton Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Glencairn Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Grosvenor Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Grosvenor Street",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Lansdowne Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Lynedoch Place",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Lynedoch Place Lane",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Magdala Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Palmerston Place",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Rosebery Crescent",
+      "zone": "1",
+      "code": "B3"
+    },
+    {
+      "street": "Ainslie Place",
+      "zone": "1A",
+      "code": "B2"
+    },
+    {
+      "street": "Great Stuart Street",
+      "zone": "1A",
+      "code": "B2"
+    },
+    {
+      "street": "Heriot Row",
+      "zone": "1A",
+      "code": "B3"
+    },
+    {
+      "street": "Moray Place",
+      "zone": "1A",
+      "code": "B3"
+    },
+    {
+      "street": "Queen Street Gardens East",
+      "zone": "1A",
+      "code": "B3"
+    },
+    {
+      "street": "Queen Street Gardens West",
+      "zone": "1A",
+      "code": "B3"
+    },
+    {
+      "street": "Wemyss Place",
+      "zone": "1A",
+      "code": "B3"
+    },
+    {
+      "street": "Abercromby Place",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Albany Street",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Dublin Street",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Forth Street",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Picardy Place",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Queen Street Gardens East",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Regent Road",
+      "zone": "2",
+      "code": "B2"
+    },
+    {
+      "street": "Union Street",
+      "zone": "2",
+      "code": "B3"
+    },
+    {
+      "street": "Waterloo Place",
+      "zone": "2",
+      "code": "B2"
+    },
+    {
+      "street": "Abbeyhill Crescent",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Blackfriars Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Blair Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Calton Road",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Canongate",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Chambers Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Cockburn Street",
+      "zone": "3",
+      "code": "B1"
+    },
+    {
+      "street": "Cowgate",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "East Market Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "High Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Infirmary Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Jeffrey Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Market Street",
+      "zone": "3",
+      "code": "B1"
+    },
+    {
+      "street": "Niddry Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "St Giles Street",
+      "zone": "3",
+      "code": "B1"
+    },
+    {
+      "street": "St John Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "St Mary's Street",
+      "zone": "3",
+      "code": "B2"
+    },
+    {
+      "street": "Brougham Street",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Drumdryan Street",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Gardner's Crescent",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Glen Street",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Glengyle Terrace",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Grove Street",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Lauriston Gardens",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Lauriston Park",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Lochrin Place",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Lonsdale Terrace",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Panmure Place",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Rosemount Buildings",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Tarvit Street",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "West Tollcross",
+      "zone": "4",
+      "code": "B3"
+    },
+    {
+      "street": "Brandon Street",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Brandon Terrace",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Dean Bank Lane",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Henderson Place",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Henderson Place Lane",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Henderson Row",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Perth Street",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Saxe-Coburg Place",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Saxe-Coburg Street",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Silvermills",
+      "zone": "5A",
+      "code": "C2"
+    },
+    {
+      "street": "Blenheim Place",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Brandon Street",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Brandon Terrace",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Carlton Terrace",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Carlton Terrace Brae",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Carlton Terrace Lane",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Dundas Street",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Eyre Crescent",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Eyre Place",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Regent Road",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Regent Terrace",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Royal Terrace",
+      "zone": "6",
+      "code": "C2"
+    },
+    {
+      "street": "Rodney Street",
+      "zone": "N1",
+      "code": "C2"
+    }
+  ],
+  "cheap": [
+    {
+      "street": "Annandale Street",
+      "code": "E",
+      "pts": [
+        [
+          -3.18846,
+          55.96258
+        ],
+        [
+          -3.18839,
+          55.96267
+        ],
+        [
+          -3.18826,
+          55.96259
+        ]
+      ]
+    },
+    {
+      "street": "Annandale Street",
+      "code": "E",
+      "pts": [
+        [
+          -3.18581,
+          55.96102
+        ],
+        [
+          -3.18632,
+          55.96132
+        ],
+        [
+          -3.18692,
+          55.9617
+        ],
+        [
+          -3.18668,
+          55.96156
+        ],
+        [
+          -3.18587,
+          55.96118
+        ],
+        [
+          -3.18606,
+          55.96129
+        ],
+        [
+          -3.18626,
+          55.96141
+        ],
+        [
+          -3.18664,
+          55.96165
+        ]
+      ]
+    },
+    {
+      "street": "Annandale Street",
+      "code": "E",
+      "pts": [
+        [
+          -3.18518,
+          55.96068
+        ],
+        [
+          -3.18532,
+          55.96076
+        ],
+        [
+          -3.18514,
+          55.96079
+        ]
+      ]
+    },
+    {
+      "street": "Annandale Street",
+      "code": "E",
+      "pts": [
+        [
+          -3.18436,
+          55.96015
+        ],
+        [
+          -3.1842,
+          55.96024
+        ],
+        [
+          -3.18405,
+          55.96
+        ]
+      ]
+    },
+    {
+      "street": "Arboretum Place",
+      "code": "G",
+      "pts": [
+        [
+          -3.21407,
+          55.96614
+        ],
+        [
+          -3.21387,
+          55.96586
+        ]
+      ]
+    },
+    {
+      "street": "Arboretum Place",
+      "code": "G",
+      "pts": [
+        [
+          -3.21196,
+          55.96321
+        ]
+      ]
+    },
+    {
+      "street": "Beaufort Road",
+      "code": "G",
+      "pts": [
+        [
+          -3.19184,
+          55.93514
+        ]
+      ]
+    },
+    {
+      "street": "Beaverhall Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.19285,
+          55.96563
+        ],
+        [
+          -3.19303,
+          55.96583
+        ],
+        [
+          -3.19317,
+          55.96597
+        ],
+        [
+          -3.19333,
+          55.96617
+        ],
+        [
+          -3.19342,
+          55.96626
+        ],
+        [
+          -3.1927,
+          55.96567
+        ],
+        [
+          -3.19288,
+          55.96586
+        ],
+        [
+          -3.19299,
+          55.96597
+        ]
+      ]
+    },
+    {
+      "street": "Brunswick Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.17629,
+          55.96015
+        ]
+      ]
+    },
+    {
+      "street": "Brunswick Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.17441,
+          55.96055
+        ]
+      ]
+    },
+    {
+      "street": "Brunton Place",
+      "code": "E",
+      "pts": [
+        [
+          -3.17538,
+          55.95762
+        ]
+      ]
+    },
+    {
+      "street": "Carrington Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.22851,
+          55.96106
+        ]
+      ]
+    },
+    {
+      "street": "Carrington Road",
+      "code": "H",
+      "pts": [
+        [
+          -3.22743,
+          55.96138
+        ],
+        [
+          -3.22651,
+          55.96157
+        ],
+        [
+          -3.22543,
+          55.9618
+        ],
+        [
+          -3.22431,
+          55.96204
+        ],
+        [
+          -3.22326,
+          55.96227
+        ],
+        [
+          -3.22196,
+          55.96255
+        ],
+        [
+          -3.22695,
+          55.96139
+        ],
+        [
+          -3.22547,
+          55.96169
+        ],
+        [
+          -3.22401,
+          55.962
+        ],
+        [
+          -3.22229,
+          55.96238
+        ]
+      ]
+    },
+    {
+      "street": "Clinton Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.2009,
+          55.93239
+        ]
+      ]
+    },
+    {
+      "street": "Cluny Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.20734,
+          55.92543
+        ]
+      ]
+    },
+    {
+      "street": "Cluny Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.20594,
+          55.92541
+        ]
+      ]
+    },
+    {
+      "street": "Cluny Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.20439,
+          55.92549
+        ],
+        [
+          -3.20456,
+          55.92541
+        ]
+      ]
+    },
+    {
+      "street": "Cluny Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.20177,
+          55.92588
+        ],
+        [
+          -3.20244,
+          55.92569
+        ]
+      ]
+    },
+    {
+      "street": "Colinton Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.22527,
+          55.92942
+        ]
+      ]
+    },
+    {
+      "street": "Craigleith Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.23241,
+          55.95746
+        ],
+        [
+          -3.23095,
+          55.9577
+        ],
+        [
+          -3.22966,
+          55.95794
+        ]
+      ]
+    },
+    {
+      "street": "Craigleith Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.22855,
+          55.95814
+        ],
+        [
+          -3.22785,
+          55.95827
+        ]
+      ]
+    },
+    {
+      "street": "Dick Place",
+      "code": "G",
+      "pts": [
+        [
+          -3.19265,
+          55.9327
+        ],
+        [
+          -3.19189,
+          55.93279
+        ]
+      ]
+    },
+    {
+      "street": "Dick Place",
+      "code": "G",
+      "pts": [
+        [
+          -3.18718,
+          55.93368
+        ],
+        [
+          -3.1866,
+          55.93378
+        ]
+      ]
+    },
+    {
+      "street": "Dundee Terrace",
+      "code": "E",
+      "pts": [
+        [
+          -3.22436,
+          55.93788
+        ],
+        [
+          -3.2238,
+          55.9383
+        ]
+      ]
+    },
+    {
+      "street": "East Fettes Avenue",
+      "code": "G",
+      "pts": [
+        [
+          -3.22169,
+          55.96364
+        ]
+      ]
+    },
+    {
+      "street": "East Fettes Avenue",
+      "code": "G",
+      "pts": [
+        [
+          -3.22046,
+          55.96192
+        ]
+      ]
+    },
+    {
+      "street": "Fettes Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.22347,
+          55.96004
+        ]
+      ]
+    },
+    {
+      "street": "Fettes Avenue",
+      "code": "H",
+      "pts": [
+        [
+          -3.22412,
+          55.96099
+        ],
+        [
+          -3.22471,
+          55.96146
+        ],
+        [
+          -3.22434,
+          55.96092
+        ],
+        [
+          -3.22403,
+          55.96045
+        ]
+      ]
+    },
+    {
+      "street": "Grange Loan",
+      "code": "G",
+      "pts": [
+        [
+          -3.18837,
+          55.93119
+        ]
+      ]
+    },
+    {
+      "street": "Harrison Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.22618,
+          55.93507
+        ],
+        [
+          -3.22513,
+          55.93445
+        ],
+        [
+          -3.22481,
+          55.93435
+        ]
+      ]
+    },
+    {
+      "street": "Hope Terrace",
+      "code": "G",
+      "pts": [
+        [
+          -3.19418,
+          55.93356
+        ],
+        [
+          -3.19482,
+          55.93349
+        ]
+      ]
+    },
+    {
+      "street": "Hopetoun Crescent",
+      "code": "E",
+      "pts": [
+        [
+          -3.18285,
+          55.96182
+        ]
+      ]
+    },
+    {
+      "street": "Inverleith Place",
+      "code": "G",
+      "pts": [
+        [
+          -3.21222,
+          55.96698
+        ],
+        [
+          -3.21404,
+          55.96664
+        ],
+        [
+          -3.21371,
+          55.96672
+        ],
+        [
+          -3.2133,
+          55.96682
+        ],
+        [
+          -3.21298,
+          55.96691
+        ],
+        [
+          -3.21267,
+          55.96698
+        ],
+        [
+          -3.21232,
+          55.96707
+        ],
+        [
+          -3.21199,
+          55.96716
+        ],
+        [
+          -3.21148,
+          55.96728
+        ]
+      ]
+    },
+    {
+      "street": "Inverleith Terrace",
+      "code": "G",
+      "pts": [
+        [
+          -3.20915,
+          55.96297
+        ],
+        [
+          -3.21088,
+          55.96271
+        ],
+        [
+          -3.21032,
+          55.96276
+        ],
+        [
+          -3.20807,
+          55.96298
+        ],
+        [
+          -3.20752,
+          55.96304
+        ]
+      ]
+    },
+    {
+      "street": "Lauder Road",
+      "code": "G",
+      "pts": [
+        [
+          -3.18643,
+          55.9344
+        ],
+        [
+          -3.18631,
+          55.93424
+        ],
+        [
+          -3.18616,
+          55.93405
+        ],
+        [
+          -3.18668,
+          55.93444
+        ],
+        [
+          -3.1865,
+          55.93422
+        ],
+        [
+          -3.18635,
+          55.93402
+        ]
+      ]
+    },
+    {
+      "street": "Lauder Road",
+      "code": "G",
+      "pts": [
+        [
+          -3.1846,
+          55.93297
+        ],
+        [
+          -3.18439,
+          55.93286
+        ],
+        [
+          -3.18421,
+          55.93277
+        ],
+        [
+          -3.18387,
+          55.93259
+        ]
+      ]
+    },
+    {
+      "street": "Leopold Place",
+      "code": "E",
+      "pts": [
+        [
+          -3.18151,
+          55.95777
+        ]
+      ]
+    },
+    {
+      "street": "London Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.17952,
+          55.95772
+        ]
+      ]
+    },
+    {
+      "street": "London Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.17743,
+          55.95767
+        ]
+      ]
+    },
+    {
+      "street": "Orchard Brae Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.22493,
+          55.9557
+        ]
+      ]
+    },
+    {
+      "street": "Orchard Brae Avenue",
+      "code": "E",
+      "pts": [
+        [
+          -3.22353,
+          55.95578
+        ]
+      ]
+    },
+    {
+      "street": "Polwarth Terrace",
+      "code": "E",
+      "pts": [
+        [
+          -3.22109,
+          55.93505
+        ],
+        [
+          -3.22289,
+          55.9343
+        ],
+        [
+          -3.22232,
+          55.93458
+        ],
+        [
+          -3.22147,
+          55.93487
+        ],
+        [
+          -3.22096,
+          55.93503
+        ]
+      ]
+    },
+    {
+      "street": "Ravelston Terrace",
+      "code": "E",
+      "pts": [
+        [
+          -3.2225,
+          55.95395
+        ]
+      ]
+    },
+    {
+      "street": "South Ettrick Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.21841,
+          55.93228
+        ],
+        [
+          -3.21774,
+          55.93178
+        ]
+      ]
+    },
+    {
+      "street": "Spylaw Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.21863,
+          55.93274
+        ],
+        [
+          -3.21842,
+          55.93282
+        ],
+        [
+          -3.21808,
+          55.93294
+        ],
+        [
+          -3.21762,
+          55.93311
+        ],
+        [
+          -3.21728,
+          55.93324
+        ],
+        [
+          -3.21857,
+          55.93268
+        ],
+        [
+          -3.2174,
+          55.93311
+        ]
+      ]
+    },
+    {
+      "street": "Warriston Gardens",
+      "code": "E",
+      "pts": [
+        [
+          -3.20186,
+          55.96928
+        ]
+      ]
+    },
+    {
+      "street": "Wester Coates Road",
+      "code": "E",
+      "pts": [
+        [
+          -3.22956,
+          55.94728
+        ],
+        [
+          -3.22981,
+          55.9475
+        ],
+        [
+          -3.22976,
+          55.94728
+        ],
+        [
+          -3.22971,
+          55.94704
+        ]
+      ]
+    }
+  ]
+}

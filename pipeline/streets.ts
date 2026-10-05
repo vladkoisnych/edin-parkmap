@@ -1,4 +1,6 @@
-// Street naming from the council's own street centrelines (layer 18).
+// Street naming: each bay takes the nearest named road centreline. Centrelines
+// come from OS Open Roads in the open default, or from the council's Street
+// Types layer (Transport 18) in council mode.
 
 import { axisDifference, bboxOf, closestOnSegmentXY, GridIndex, toXY, type LngLat } from '../src/lib/geo';
 
@@ -10,9 +12,11 @@ const AXIS_PENALTY_M = 20;
 
 export interface StreetLine {
   name: string;
-  /** Road category, e.g. "General Access Road". */
+  /** Road function/category, e.g. "Local Road" (OS) or "General Access Road" (council). */
   featureType: string;
+  /** "Trunk" for trunk roads, else the road class. */
   classification: string;
+  /** Council adoption status; empty when the source doesn't say. */
   adoption: string;
   coords: LngLat[];
 }

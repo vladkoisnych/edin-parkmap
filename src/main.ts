@@ -240,7 +240,7 @@ async function boot() {
     return;
   }
   const date = new Date(data.meta.fetchedAt);
-  document.querySelectorAll('.year').forEach((el) => (el.textContent = String(new Date(data.meta.fetchedAt).getFullYear())));
+  if (data.meta.attribution) $('data-attribution').textContent = data.meta.attribution.replace(/database right\b/g, `database right ${new Date(data.meta.fetchedAt).getFullYear()}`);
   $('data-date').textContent = `Data as of ${date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}.`;
 
   pmap = new ParkMap($('map'), data, {
