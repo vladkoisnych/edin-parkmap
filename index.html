@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Find the cheapest on-street parking in Edinburgh: £1/hr bays and free parking outside controlled zones." />
+    <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Edinburgh Cheap Parking</title>
+  </head>
+  <body>
+    <div id="map" role="application" aria-label="Parking map"></div>
+
+    <header class="top">
+      <button id="legend-chip" class="chip" type="button" aria-expanded="false" aria-controls="legend">
+        <span class="swatch swatch-cheap" aria-hidden="true"></span>
+        <span>£1/hr</span>
+        <span class="swatch swatch-free" aria-hidden="true"></span>
+        <span>Free</span>
+        <span class="chip-more" aria-hidden="true">▾</span>
+      </button>
+      <button id="locate" class="round-btn" type="button" aria-label="Show my location">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="currentColor" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+    </header>
+
+    <section id="legend" class="panel legend" hidden aria-label="Legend and layers">
+      <ul class="legend-list">
+        <li><span class="swatch swatch-cheap"></span>£1/hr bays (long stay, max 9 h)</li>
+        <li><span class="swatch swatch-free"></span>Free: outside controlled zones</li>
+        <li><span class="swatch swatch-freenow"></span>Paid bay, free right now</li>
+        <li><span class="swatch swatch-band"></span>Other paid bays, darker = dearer</li>
+      </ul>
+      <label class="toggle"><input type="checkbox" id="toggle-paid" checked /> Show other paid bays</label>
+      <label class="toggle"><input type="checkbox" id="toggle-freenow" /> Highlight bays free right now</label>
+      <p class="legend-meta" id="data-date">Loading data…</p>
+      <p class="legend-meta">
+        Bay and tariff data: City of Edinburgh Council (Crown copyright, Ordnance Survey). Always check the signs on
+        street; restrictions on the day take precedence.
+      </p>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <section id="sheet" class="sheet" hidden aria-modal="false" role="dialog" aria-labelledby="sheet-title">
+      <div class="sheet-grip" aria-hidden="true"></div>
+      <button class="sheet-close round-btn small" type="button" aria-label="Close">✕</button>
+      <div id="sheet-body"></div>
+    </section>
+
+    <footer class="bottom">
+      <form id="search" class="search" role="search" autocomplete="off">
+        <input
+          id="search-input"
+          type="search"
+          inputmode="search"
+          enterkeyhint="search"
+          placeholder="Where are you going? Address or postcode"
+          aria-label="Destination address or postcode"
+        />
+        <button type="submit" class="search-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4" />
+            <path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+        </button>
+      </form>
+      <p class="notice">Check the signs on street before you pay or park.</p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "edin-parkmap",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "data": "tsx pipeline/run.ts",
+    "data:fixtures": "tsx pipeline/make-fixtures.mts",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.0.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
+  "engines": {
+    "node": ">=22.15"
+  }
+}

@@ -1,0 +1,94 @@
+name: Refresh data and deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 5 * * 1' # Mondays 05:17 UTC
+  workflow_dispatch:
+    inputs:
+      skip_drift:
+        description: Accept a large change in counts (skip the drift check)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+      - name: Fetch and validate council data
+        id: data
+        continue-on-error: true
+        run: |
+          npm run data -- --previous "${SITE_URL}data/meta.json" ${{ inputs.skip_drift && '--no-drift' || '' }} 2>&1 | tee data.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Keep last good snapshot on failure
+        if: steps.data.outcome == 'failure'
+        run: |
+          mkdir -p public/data
+          for f in bays.geojson tariffs.geojson segments.json free-zone.geojson free-points.geojson meta.json; do
+            curl -fsSL "${SITE_URL}data/$f" -o "public/data/$f"
+          done
+
+      - name: Open an issue about the failed refresh
+        if: steps.data.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "The data refresh failed validation, so the previous snapshot stays live."
+            echo
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo
+            echo '```'
+            tail -n 60 data.log
+            echo '```'
+          } > issue.md
+          gh issue create --title "Data refresh failed ($(date -u +%F))" --body-file issue.md
+
+      - name: E2E (mobile emulation)
+        run: |
+          npx playwright install --with-deps chromium
+          npm run build
+          npm run e2e
+
+      - name: Build for Pages
+        run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
