@@ -60,5 +60,22 @@ Node ≥ 22.15. `npm run data:fixtures` re-freezes the test fixture slice from `
 2. The workflow runs on push, weekly, and on demand. Use the `skip_drift` input to accept a
    legitimate big change in counts.
 
-Licensing still needs checking before a public launch (spec §8). The council REST service has no
-published reuse terms. OSM tiles and Nominatim are used at low volume, with attribution.
+## Licensing
+
+**Code:** MIT (see `LICENSE`). The licence does not cover the data.
+
+**Data** (checked 5 Oct 2026):
+
+| Source | Used for | Terms | Status |
+| --- | --- | --- | --- |
+| Council *Parking Bays* (Transport layers 13/15; same dataset as open INSPIRE layer 11) | Bay geometry, zone, type | [OGL v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/), attribution required | OK |
+| Council *Controlled Parking Zones* (Transport 4; open INSPIRE layer 12) | Free-zone edges | OGL v3.0, attribution required | OK |
+| Council *Parking Tariff Area* (Transport 16) | Prices and hours | No licence published. The web map says only "© Crown copyright and database rights Ordnance Survey 0100023420" plus a disclaimer | **Needs council permission** |
+| Council *Street Types* (Transport 18) | Street names | No licence published | **Needs permission**, or switch to OS Open Roads (OGL) |
+| Council *CPZ with Uncontrolled Zones* (Transport 24) | Free-zone polygon | No licence published | **Needs permission**, or derive from city boundary (OGL) minus CPZ |
+| OpenStreetMap tiles | Basemap | ODbL attribution, [tile usage policy](https://operations.osmfoundation.org/policies/tiles/) | OK at low volume. Move to a commercial tile host if traffic grows |
+| Nominatim | Address search | [Usage policy](https://operations.osmfoundation.org/policies/nominatim/): ≤1 req/s, no autocomplete, identifying Referer | OK (submit only, no autocomplete) |
+| postcodes.io | Postcode search | ONS/OS/Royal Mail data under OGL, attribution | OK |
+
+Required attribution for the council data: "Copyright City of Edinburgh Council, contains Ordnance
+Survey data © Crown copyright and database right (year)". It appears in the legend and on the map.

@@ -116,7 +116,7 @@ export class ParkMap {
     this.tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution:
-        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Parking data © City of Edinburgh Council',
+        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · Parking data © City of Edinburgh Council, contains OS data © Crown copyright and database right',
     }).addTo(this.map);
   }
 
