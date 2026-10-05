@@ -86,11 +86,6 @@ Open vs council on 5 Oct 2026 (`npm run data:compare`), over 2,151 bays:
   fails the refresh when a key count moves more than 20%. The last good snapshot stays live and an
   issue is opened.
 
-## Deploying
-
-1. Push to a public GitHub repo with Pages enabled, source **GitHub Actions**.
-2. The workflow runs on push, weekly, and on demand. Use the `skip_drift` input to accept a
-   legitimate big change in counts.
 
 ## Licensing
 
@@ -111,11 +106,5 @@ Open vs council on 5 Oct 2026 (`npm run data:compare`), over 2,151 bays:
 | Council *Parking Tariff Area*, *Street Types*, *CPZ with Uncontrolled Zones* (Transport 16, 18, 24) | `--source council` only | No licence published | Needs council permission |
 
 Caveat: the £1/hr locations in `tariff-rules.json` (47 short lists of bay centres) were copied
-from the unlicensed tariff layer because no open source lists them. That's a small extraction,
-but it isn't strictly covered until the council confirms. Ask the council GIS team, or re-verify
-the list from street signage and replace it.
-
-Required attribution: "Copyright City of Edinburgh Council, contains Ordnance Survey data © Crown
-copyright and database right (year)", plus OS Open Roads' "Contains OS data © Crown copyright and
-database right (year)". `meta.json` carries the right text for the active source mode, and the
-legend shows it.
+from the tariff layer because no open source lists them. That's a small extraction,
+but it isn't strictly covered until the council confirms. 
